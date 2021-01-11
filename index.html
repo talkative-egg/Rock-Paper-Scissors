@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+    <script>
+        let computerScore = 0;
+        let playerScore = 0;
+
+        function computerPlay(){
+            const randomNumber = parseInt(Math.random() * 3);
+            let computerMove;
+            switch(randomNumber){
+                case 0:
+                    computerMove = "Rock";
+                    break;
+                case 1:
+                    computerMove = "Paper";
+                    break;
+                case 2:
+                    computerMove = "Scissors";
+                    break;
+                default:
+                    computerMove = null;
+                    break;
+            }
+            return computerMove;
+        }
+
+        function rockPaperScissors(playerSelection, computerSelection){
+            playerSelection = neatString(playerSelection);
+            computerSelection = neatString(computerSelection);
+            let playerNumber = moveToNumber(playerSelection);
+            let computerNumber = moveToNumber(computerSelection);
+            if(computerNumber == playerNumber){
+                return "It's a tie!";
+            }else if(computerNumber - playerNumber == 1 || computerNumber - playerNumber == -2){
+                computerScore++;
+                return "You lose! "+computerSelection+" beats "+playerSelection+"!";
+            }else if(computerNumber - playerNumber == -1 || computerNumber - playerNumber == 2){
+                playerScore++;
+                return "You win! "+playerSelection+" beats "+computerSelection+"!";
+            }else{
+                return "unknown";
+            }
+        }
+
+        function neatString(str){
+            str = str.toLowerCase().trim();
+            str = str.replace(str[0], str[0].toUpperCase());
+            return str;
+        }
+
+        function moveToNumber(str){
+            if(str == "Rock"){
+                return 0;
+            }else if(str == "Paper"){
+                return 1;
+            }else if(str == "Scissors"){
+                return 2;
+            }else{
+                return -1;
+            }
+        }
+
+        function game(){
+            for(let i = 0; i < 5; i++){
+                let playerSelection = prompt("What's your move?");
+                console.log(rockPaperScissors(playerSelection, computerPlay()));
+            }
+            if(computerScore == playerScore){
+                console.log("It's a tie!!!");
+            }else if(computerScore > playerScore){
+                console.log("Computer Wins!");
+            }else if(computerScore < playerScore){
+                console.log("You win!");
+            }else{
+                console.log("Error");
+            }
+        }
+
+        game();
+    </script>
+</html>
